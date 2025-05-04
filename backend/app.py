@@ -16,7 +16,10 @@ from werkzeug.utils import secure_filename
 
 # 加载环境变量
 env_path = Path(__file__).parent / '.env'
-load_dotenv(env_path)
+if env_path.exists():
+    load_dotenv(env_path)
+else:
+    print("Warning: .env file not found, using system environment variables")
 
 app = Flask(__name__)
 CORS(app)

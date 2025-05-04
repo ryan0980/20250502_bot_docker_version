@@ -27,6 +27,15 @@ RUN apt-get update \
        libxrender1 \
        nginx \
        dos2unix \
+       ffmpeg \
+       libavcodec-extra \
+       libavformat-dev \
+       libswscale-dev \
+       libtbb2 \
+       libtbb-dev \
+       libjpeg-dev \
+       libpng-dev \
+       libtiff-dev \
  && rm -rf /var/lib/apt/lists/*
 
 # 复制前端构建产物

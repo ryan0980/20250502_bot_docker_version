@@ -13,7 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent
 env_path = BASE_DIR / ".env"
 print("Attempting to load .env:", env_path, "exists:", env_path.is_file())
 # 3) Load with encoding and override
-load_dotenv(dotenv_path=str(env_path), override=True, encoding="utf-8-sig")
+if env_path.is_file():
+    load_dotenv(dotenv_path=str(env_path), override=True, encoding="utf-8-sig")
+else:
+    print("Warning: .env file not found, using system environment variables")
 print("GOOGLE_API_KEY=", os.getenv("GOOGLE_API_KEY"))
 
 def generate_action_segments(
