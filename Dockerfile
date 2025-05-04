@@ -26,6 +26,7 @@ RUN apt-get update \
        libxext6 \
        libxrender1 \
        nginx \
+       dos2unix \
  && rm -rf /var/lib/apt/lists/*
 
 # 复制前端构建产物
@@ -51,5 +52,5 @@ ENV FLASK_ENV=production
 
 # 启动脚本
 COPY start.sh /app/
-RUN chmod +x /app/start.sh
+RUN dos2unix /app/start.sh && chmod +x /app/start.sh
 CMD ["/app/start.sh"] 
