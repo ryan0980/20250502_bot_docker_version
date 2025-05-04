@@ -1,17 +1,17 @@
 # 构建前端
 FROM node:18-alpine as frontend-build
 WORKDIR /app/frontend
-COPY 20250502_docker_react_bot/frontend/package*.json ./
+COPY frontend/package*.json ./
 RUN npm ci
-COPY 20250502_docker_react_bot/frontend/ ./
+COPY frontend/ ./
 RUN npm run build
 
 # 构建后端
 FROM python:3.11.5-slim as backend-build
 WORKDIR /app/backend
-COPY 20250502_docker_bot_video/requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY 20250502_docker_bot_video/ ./
+COPY backend/ ./
 
 # 最终镜像
 FROM python:3.11.5-slim
