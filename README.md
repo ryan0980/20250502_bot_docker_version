@@ -29,21 +29,21 @@ git clone https://github.com/ryan0980/20250502_bot_docker_version.git
 cd 20250502_bot_docker_version
 ```
 
-2. Build the Docker image with your Google API Key:
+2. Build the Docker image:
 
 ```bash
-docker build --build-arg GOOGLE_API_KEY=your_api_key_here -t video-processing-bot .
+docker build -t video-processing-bot .
 ```
-
-Replace `your_api_key_here` with your actual Google API Key.
 
 ## Running the Application
 
-1. Start the container:
+1. Start the container with your Google API Key:
 
 ```bash
-docker run -p 80:80 -p 5000:5000 video-processing-bot
+docker run -p 80:80 -p 5000:5000 -e GOOGLE_API_KEY=your_api_key_here video-processing-bot
 ```
+
+Replace `your_api_key_here` with your actual Google API Key.
 
 2. Access the application:
 
@@ -57,8 +57,10 @@ docker run -p 80:80 -p 5000:5000 video-processing-bot
 ├── Dockerfile              # Main Docker configuration
 ├── nginx.conf             # Nginx server configuration
 ├── start.sh               # Container startup script
-├── uploads/               # Directory for uploaded videos
-└── separated_videos/      # Directory for processed video outputs
+├── frontend/             # React frontend application
+├── backend/              # Flask backend application
+├── uploads/              # Directory for uploaded videos
+└── separated_videos/     # Directory for processed video outputs
 ```
 
 ## API Endpoints
@@ -89,9 +91,19 @@ The backend is built with Flask and runs on port 5000. It handles video processi
 
 ## Environment Variables
 
-- `GOOGLE_API_KEY`: Required for video processing
-- `FLASK_APP`: Set to `app.py` for Flask application
-- `FLASK_ENV`: Set to `production` for production environment
+The following environment variables are required:
+
+- `GOOGLE_API_KEY`: Required for video processing. Must be provided when running the container.
+- `FLASK_APP`: Set to `app.py` for Flask application (automatically set in Dockerfile)
+- `FLASK_ENV`: Set to `production` for production environment (automatically set in Dockerfile)
+
+Example of running with environment variables:
+
+```bash
+docker run -p 80:80 -p 5000:5000 \
+  -e GOOGLE_API_KEY=your_api_key_here \
+  video-processing-bot
+```
 
 ## Troubleshooting
 
@@ -111,17 +123,17 @@ docker logs <container-id>
 
 3. Common issues:
    - Port conflicts: Ensure ports 80 and 5000 are not in use
-   - API Key issues: Verify your Google API Key is valid
+   - API Key issues: Verify your Google API Key is valid and properly set
    - Storage issues: Check available disk space
    - Memory issues: Ensure sufficient RAM is available
 
 ## Security Notes
 
-- The Google API Key is embedded in the Docker image during build time
-- Do not share the built image with others
+- Never commit your Google API Key to version control
 - Keep your API key secure and rotate it regularly
 - Use HTTPS in production environments
 - Implement proper authentication for API endpoints
+- Consider using Docker secrets or environment files for sensitive data
 
 ## Contributing
 
