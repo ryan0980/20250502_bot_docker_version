@@ -31,7 +31,7 @@ RUN apt-get update \
        libavcodec-extra \
        libavformat-dev \
        libswscale-dev \
-       libtbb2 \
+       libtbbmalloc2 \
        libtbb-dev \
        libjpeg-dev \
        libpng-dev \
