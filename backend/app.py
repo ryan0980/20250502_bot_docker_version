@@ -80,7 +80,7 @@ def upload_file():
             combined_result = combine_analysis_results(analysis_results)
             
             return jsonify({
-                "message": "文件上传、分割和分析成功",
+                "message": "File uploaded, split and analyzed successfully",
                 "filename": file.filename,
                 "separated_videos": separated_videos,
                 "analysis_results": analysis_results,
